@@ -1,19 +1,9 @@
-"""
-Flask Web Application for Text Summarization
+"""Flask Web Application for Text Summarization."""
 
-Modern, production-grade UI with:
-- Token-by-token animated generation
-- Real-time progress indicators
-- Smooth transitions and loading states
-- Responsive design
-- Professional UX
-
-This demonstrates the autoregressive generation visually!
-"""
-
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from inference import PretrainedInference
+import os
 import torch
 import json
 import time
@@ -26,27 +16,53 @@ CORS(app)  # Enable CORS for React Native app
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Initializing model on {device}...")
 
-try:
-    # Use sshleifer/distilbart-cnn-12-6 for fast, high-quality summarization
-    print("Loading DistilBART model (optimized for speed and quality)...")
-    model = PretrainedInference("sshleifer/distilbart-cnn-12-6", device=device)
-    print("✓ Model loaded successfully")
-except Exception as e:
-    print(f"Warning: Could not load DistilBART model: {e}")
-    print("Trying T5-small as fallback...")
+preferred_model = os.getenv("SUMMARIZATION_MODEL", "google/flan-t5-base").strip()
+fallback_models = [
+    preferred_model,
+    # FLAN-T5 family (recommended for instruction-following summarization)
+    "google/flan-t5-base",
+    # Fast, high-quality summarization fallback
+    "sshleifer/distilbart-cnn-12-6",
+    # Smallest fallback
+    "t5-small",
+]
+
+model = None
+last_error = None
+
+for model_name in fallback_models:
+    if not model_name:
+        continue
     try:
-        model = PretrainedInference("t5-small", device=device)
-        print("✓ T5-Small model loaded successfully")
-    except Exception as e2:
-        print(f"Error: Could not load any model: {e2}")
-        print("Install transformers: pip install transformers")
-        model = None
+        print(f"Loading summarization model: {model_name}...")
+        model = PretrainedInference(model_name, device=device)
+        print("✓ Model loaded successfully")
+        break
+    except Exception as e:
+        last_error = e
+        print(f"Warning: Could not load model '{model_name}': {e}")
+
+if model is None:
+    print("Error: Could not load any model.")
+    print(f"Last error: {last_error}")
+    print("Try: pip install transformers torch sentencepiece protobuf")
 
 
 @app.route('/')
 def index():
-    """Serve the main UI."""
-    return render_template('index.html')
+    """Backend info (frontend runs separately on Vite)."""
+    return jsonify({
+        "name": "Transformer Summarization API",
+        "status": "ok",
+        "model_loaded": model is not None,
+        "device": device,
+        "endpoints": {
+            "health": "/api/health",
+            "summarize": "/api/summarize",
+            "summarize_stream": "/api/summarize/stream",
+        },
+        "frontend_hint": "Open the React app (Vite) at http://localhost:3000",
+    })
 
 
 @app.route('/api/summarize', methods=['POST'])

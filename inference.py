@@ -279,10 +279,10 @@ class PretrainedInference:
     Optimized for production use with state-of-the-art models.
     """
     
-    def __init__(self, model_name="sshleifer/distilbart-cnn-12-6", device='cuda'):
+    def __init__(self, model_name="google/flan-t5-base", device='cuda'):
         """
         Args:
-            model_name: Hugging Face model name (default: DistilBART for fast, quality summarization)
+            model_name: Hugging Face model name (default: FLAN-T5 Base for reliable summarization on CPU)
             device: Device to run inference on
         """
         from transformers import AutoModelForSeq2SeqLM, AutoTokenizer

@@ -55,15 +55,15 @@ Write-Host "   SERVER STATUS" -ForegroundColor Cyan
 Write-Host "==============================================================" -ForegroundColor Cyan
 
 if ($backendRunning) {
-    Write-Host "   ✓ Backend:  http://localhost:5000 (Running)" -ForegroundColor Green
+    Write-Host "   [OK]   Backend:  http://localhost:5000 (Running)" -ForegroundColor Green
 } else {
-    Write-Host "   ✗ Backend:  http://localhost:5000 (Starting...)" -ForegroundColor Yellow
+    Write-Host "   [WAIT] Backend:  http://localhost:5000 (Starting...)" -ForegroundColor Yellow
 }
 
 if ($frontendRunning) {
-    Write-Host "   ✓ Frontend: http://localhost:3000 (Running)" -ForegroundColor Green
+    Write-Host "   [OK]   Frontend: http://localhost:3000 (Running)" -ForegroundColor Green
 } else {
-    Write-Host "   ✗ Frontend: http://localhost:3000 (Starting...)" -ForegroundColor Yellow
+    Write-Host "   [WAIT] Frontend: http://localhost:3000 (Starting...)" -ForegroundColor Yellow
 }
 
 Write-Host ""

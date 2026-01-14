@@ -18,6 +18,7 @@ Architecture Flow:
 import torch
 import torch.nn as nn
 import math
+from typing import cast
 from attention_masks import AttentionMaskGenerator
 
 
@@ -64,8 +65,7 @@ class PositionalEncoding(nn.Module):
         """
         # Add positional encoding to embeddings
         seq_len = x.size(1)
-        # Type ignore for buffer access
-        pe_buffer = self.pe  # type: ignore
+        pe_buffer = cast(torch.Tensor, self.pe)
         x = x + pe_buffer[:, :seq_len, :].detach()
         return self.dropout(x)
 
