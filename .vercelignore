@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+backend/
+archive/
+models/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+*.log
+requirements.txt
+start.ps1
+IMPROVEMENTS.md
+PROJECT_CLEANUP.md
