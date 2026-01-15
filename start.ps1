@@ -1,7 +1,7 @@
-# Start the Transformer Seq2Seq Application
+# Start the Summarizer Application
 
 Write-Host "`n==================================================================" -ForegroundColor Cyan
-Write-Host "   STARTING TRANSFORMER SEQ2SEQ APPLICATION" -ForegroundColor Cyan
+Write-Host "   STARTING SUMMARIZER APPLICATION" -ForegroundColor Cyan
 Write-Host "==================================================================" -ForegroundColor Cyan
 
 # Start Backend Server (Flask with FLAN-T5) in new window

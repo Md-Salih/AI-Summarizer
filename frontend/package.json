@@ -1,5 +1,5 @@
 {
-  "name": "transformer-seq2seq-web",
+  "name": "summarizer-web",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
