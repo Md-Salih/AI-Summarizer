@@ -307,6 +307,7 @@ class PretrainedInference:
         length_penalty: float = 2.0,
         early_stopping: bool = True,
         no_repeat_ngram_size: int = 3,
+        repetition_penalty: float = 1.2,
         temperature: float = 1.0
     ) -> str:
         """
@@ -314,12 +315,13 @@ class PretrainedInference:
         
         Args:
             text: Input document
-            max_length: Maximum summary length (increased for better coverage)
-            min_length: Minimum summary length (increased for quality)
-            num_beams: Number of beams for beam search (8 for better quality)
-            length_penalty: Length penalty for beam search
+            max_length: Maximum summary length (respects custom settings)
+            min_length: Minimum summary length (ensures completeness)
+            num_beams: Number of beams for beam search (8 for high quality)
+            length_penalty: Length penalty for beam search (2.0 encourages fuller summaries)
             early_stopping: Whether to stop when all beams finish
-            no_repeat_ngram_size: Prevent repetition
+            no_repeat_ngram_size: Prevent repetition (3 = no 3-word phrases repeat)
+            repetition_penalty: Penalty for token repetition (1.2 = mild penalty)
             temperature: Sampling temperature
         
         Returns:
@@ -338,7 +340,7 @@ class PretrainedInference:
             padding=True
         ).to(self.device)
         
-        # Generate with optimized parameters
+        # Generate with optimized parameters for accuracy
         outputs = self.model.generate(
             inputs['input_ids'],
             attention_mask=inputs['attention_mask'],
@@ -348,6 +350,7 @@ class PretrainedInference:
             length_penalty=length_penalty,
             early_stopping=early_stopping,
             no_repeat_ngram_size=no_repeat_ngram_size,
+            repetition_penalty=repetition_penalty,
             do_sample=False,  # Deterministic for consistency
             top_k=50,
             top_p=0.95
@@ -359,7 +362,10 @@ class PretrainedInference:
         return summary
     
     @torch.no_grad()
-    def summarize_streaming(self, text: str, max_length: int = 150):
+    def summarize_streaming(self, text: str, max_length: int = 150, min_length: int = 40, 
+                          num_beams: int = 6, length_penalty: float = 2.0, 
+                          no_repeat_ngram_size: int = 3, repetition_penalty: float = 1.2,
+                          early_stopping: bool = True):
         """
         Generate summary with token-by-token streaming.
         Perfect for animated UI display with proper spacing.
@@ -367,6 +373,12 @@ class PretrainedInference:
         Args:
             text: Input document
             max_length: Maximum summary length
+            min_length: Minimum summary length (preserves important details)
+            num_beams: Number of beams for beam search (6 for quality)
+            length_penalty: Length penalty factor (2.0 for complete summaries)
+            no_repeat_ngram_size: Size of n-grams that can only appear once
+            repetition_penalty: Penalty for repeating tokens (1.2 reduces redundancy)
+            early_stopping: Stop when all beams finish (ensures completeness)
         
         Yields:
             Each token as it's generated with proper spacing
@@ -389,11 +401,15 @@ class PretrainedInference:
                 inputs['input_ids'],
                 attention_mask=inputs['attention_mask'],
                 max_length=max_length,
-                min_length=40,
-                num_beams=8,
-                length_penalty=2.0,
-                no_repeat_ngram_size=3,
-                early_stopping=True
+                min_length=min_length,
+                num_beams=num_beams,
+                length_penalty=length_penalty,
+                no_repeat_ngram_size=no_repeat_ngram_size,
+                repetition_penalty=repetition_penalty,
+                early_stopping=early_stopping,
+                do_sample=False,
+                top_k=50,
+                top_p=0.95
             )
         
         # Decode full summary

@@ -22,6 +22,37 @@ body {
   margin-left: 260px;
   background: #212121;
   height: 100vh;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-hidden {
+  margin-left: 60px;
+}
+
+.floating-toggle-btn {
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: #2f2f2f;
+  border: 1px solid #4d4d4d;
+  border-radius: 8px;
+  color: #ececec;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.floating-toggle-btn:hover {
+  background: #10a37f;
+  border-color: #10a37f;
+  transform: translateY(-50%) scale(1.05);
 }
 
 /* Split Screen Panels */
@@ -65,7 +96,7 @@ body {
 .panel-content {
   flex: 1;
   padding: 24px;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .input-textarea-large {
@@ -81,6 +112,7 @@ body {
   resize: none;
   outline: none;
   line-height: 1.7;
+  overflow: hidden; /* Fixed frame - no scrolling */
 }
 
 .input-textarea-large:focus {
@@ -114,6 +146,125 @@ body {
   display: flex;
   gap: 12px;
   align-items: center;
+  justify-content: space-between;
+}
+
+.footer-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.slider-container-inline {
+  min-width: 200px;
+}
+
+.mode-toggle {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  background: #2f2f2f;
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  color: #8e8e8e;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.mode-btn:hover {
+  color: #ececec;
+}
+
+.mode-btn.active {
+  background: #10a37f;
+  color: #ffffff;
+}
+
+.slider-labels-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.slider-value-display {
+  font-size: 13px;
+  color: #10a37f;
+  font-weight: 600;
+  padding: 2px 8px;
+  background: #1f3a34;
+  border-radius: 4px;
+}
+
+.summary-slider-inline {
+  width: 100%;
+  height: 6px;
+  background: #2f2f2f;
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.summary-slider-inline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.summary-slider-inline:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+.summary-slider-inline:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+.summary-slider-inline::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.summary-slider-inline::-webkit-slider-thumb:hover {
+  background: #e0e0e0;
+  transform: scale(1.1);
+}
+
+.summary-slider-inline::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.summary-slider-inline::-moz-range-thumb:hover {
+  background: #e0e0e0;
+  transform: scale(1.1);
 }
 
 .submit-btn {
@@ -215,6 +366,70 @@ body {
   color: #b4b4b4;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+/* Summary Actions */
+.summary-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #2f2f2f;
+}
+
+.paraphrase-btn {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1.5px solid #10a37f;
+  border-radius: 20px;
+  color: #10a37f;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paraphrase-btn:hover:not(:disabled) {
+  background: #10a37f;
+  color: #ffffff;
+}
+
+.paraphrase-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-icons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid #4d4d4d;
+  border-radius: 6px;
+  color: #b4b4b4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.icon-btn:hover {
+  background: #2a2a2a;
+  border-color: #6d6d6d;
+  color: #ececec;
+}
+
+.icon-btn.active {
+  background: #10a37f;
+  border-color: #10a37f;
+  color: #ffffff;
 }
 
 /* Scrollbar for panels */

@@ -2,6 +2,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+# AI detector artifacts (generated)
+models/
+*.model
+*.vocab
 *.so
 .Python
 *.egg-info/
@@ -47,3 +52,6 @@ npm-debug.log*
 # Environment
 .env
 .env.local
+
+# Archive (development files)
+archive/

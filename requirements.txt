@@ -4,5 +4,6 @@ flask>=2.3.0
 flask-cors>=4.0.0
 tqdm>=4.65.0
 numpy>=1.24.0
+aidetector>=0.0.2
 sentencepiece>=0.2.0
 protobuf>=3.20.0
