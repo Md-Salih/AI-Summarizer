@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import './App.css'
 
+// API URL - use environment variable or default to localhost
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
 function App() {
   const [inputText, setInputText] = useState('')
   const [summary, setSummary] = useState('')
@@ -89,7 +92,7 @@ function App() {
     
     setParaphrasing(true)
     try {
-      const response = await fetch('/api/summarize/stream', {
+      const response = await fetch(`${API_URL}/api/summarize/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -180,7 +183,7 @@ function App() {
     setStats(null)
 
     try {
-      const response = await fetch('/api/summarize/stream', {
+      const response = await fetch(`${API_URL}/api/summarize/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -247,7 +250,7 @@ function App() {
 
                 // Optional real detector (if backend is configured)
                 try {
-                  const detectRes = await fetch('/api/ai-detect', {
+                  const detectRes = await fetch(`${API_URL}/api/ai-detect`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text: summaryText }),

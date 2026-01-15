@@ -7,7 +7,7 @@
 
 ## 📋 Overview
 
-Successfully reorganized the Transformer-Seq2Seq project to improve structure, remove unnecessary files, and create comprehensive documentation.
+Successfully reorganized the AI Summarizer project to improve structure, remove unnecessary files, and create comprehensive documentation.
 
 ---
 
@@ -15,7 +15,7 @@ Successfully reorganized the Transformer-Seq2Seq project to improve structure, r
 
 ### Before
 ```
-Transformer-Seq2Seq/
+AI-Summarizer/
 ├── app.py (root level)
 ├── inference.py (root level)
 ├── transformer.py (unused)
@@ -33,7 +33,7 @@ Transformer-Seq2Seq/
 
 ### After
 ```
-Transformer-Seq2Seq/
+AI-Summarizer/
 ├── backend/                       # ✨ NEW - Organized backend
 │   ├── app.py
 │   └── inference.py

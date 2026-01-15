@@ -1,7 +1,7 @@
-# Start the Summarizer Application
+# Start the AI Summarizer Application
 
 Write-Host "`n==================================================================" -ForegroundColor Cyan
-Write-Host "   STARTING SUMMARIZER APPLICATION" -ForegroundColor Cyan
+Write-Host "   STARTING AI SUMMARIZER APPLICATION" -ForegroundColor Cyan
 Write-Host "==================================================================" -ForegroundColor Cyan
 
 # Start Backend Server (Flask with FLAN-T5) in new window

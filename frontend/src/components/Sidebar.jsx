@@ -22,7 +22,7 @@ const Sidebar = ({ onNewChat, chatHistory = [], onSelectChat, onExampleClick, is
       <div className="sidebar-header">
         <div className="user-info">
           <div className="user-avatar">AI</div>
-          <span className="user-name">Transformer Seq2Seq</span>
+          <span className="user-name">Summarizer</span>
         </div>
         <button className="toggle-sidebar-btn" onClick={onToggle} title={isVisible ? "Hide Sidebar" : "Show Sidebar"}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">

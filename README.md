@@ -1,4 +1,4 @@
-# 🤖 Transformer Seq2Seq Text Summarization
+# 🤖 AI Summarizer - Text Summarization
 
 **Production-Grade AI Summarization System** with Modern React UI and Daily Chat History
 
@@ -43,7 +43,7 @@ A production-ready text summarization system powered by **Google's FLAN-T5** mod
 ## 🏗️ Project Structure
 
 ```
-Transformer-Seq2Seq/
+AI-Summarizer/
 │
 ├── backend/                       # Flask Backend
 │   ├── app.py                     # Main Flask server with streaming API
@@ -97,8 +97,8 @@ Transformer-Seq2Seq/
 
 #### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/Transformer-Seq2Seq.git
-cd Transformer-Seq2Seq
+git clone https://github.com/yourusername/AI-Summarizer.git
+cd AI-Summarizer
 ```
 
 #### 2. Set Up Python Environment
@@ -516,8 +516,8 @@ Contributions are welcome! Please follow these guidelines:
 
 ## 📞 Support
 
-- **Issues:** [GitHub Issues](https://github.com/yourusername/Transformer-Seq2Seq/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/Transformer-Seq2Seq/discussions)
+- **Issues:** [GitHub Issues](https://github.com/yourusername/AI-Summarizer/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/yourusername/AI-Summarizer/discussions)
 - **Email:** your.email@example.com
 
 ---
